@@ -350,8 +350,18 @@ body{
 .message-body{
   height: auto;
   width: 80%;
-  margin: 10px 10px 10px 20px;
   font-size: 40px;
+}
+
+.message{
+  margin: 0px 10px 10px 10px;
+}
+
+.time{
+  font-size: 20px;
+  margin: 10px 0px auto auto;
+  text-align: end  ;
+  color: #333333;
 }
 
 /* >>>>>>>>>>>>>>>>>>>>>>>footer<<<<<<<<<<<<<<<<<<<<<<<< */

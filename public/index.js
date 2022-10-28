@@ -30,6 +30,7 @@ onAuthStateChanged(auth,user => {
         document.getElementById("whenSignedOut").hidden = true;
         document.getElementById("userDetails").innerHTML = `<p>Hello ${user.displayName.split(" ")[0]} !</p> `;
         document.getElementById("userdp").src = user.photoURL;
+        document.getElementById("chatdp1").src = user.photoURL;
 
     } else {
         // not signed in
@@ -138,8 +139,13 @@ onValue(starCountRef, (snapshot) => {
                               '" id="chatdp1">'+
                               '  </div>'+
                               '  <div class="message-body">'+
-                                  data[key].Message +
-                              '  </div>'+
+                              '    <div class="time">'+
+                                      data[key].time+
+                              '     </div>'+
+                              '      <div class="message">'+
+                                      data[key].Message +
+                              '       </div>'+
+                              '   </div>'+
                               '</div>'
         $("#display").append(linkeditdelete);
 
