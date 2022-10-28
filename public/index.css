@@ -1,0 +1,407 @@
+
+/* 
+expermient splash screen*/
+body{
+  background-color:  rgb(221, 198, 244);;
+}
+
+
+.splash{
+    position: fixed;
+    top: 0;
+    font-family: 'Silkscreen', cursive;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:black;
+    z-index: 200;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .splash.display-none{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: -10;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s;
+  }
+  
+  @keyframes inc{
+    0%{
+      width: 0px;
+      height: 0px;
+    }
+  
+    75%{
+      width: 0px;
+      height: 0px;
+    }
+  
+    100% {
+      opacity: 1;
+      width: 300%;
+      height: 300%;
+    }
+  }
+  
+  .circle{
+    z-index: 201;
+    border-radius: 1000px;
+    background-color: rgb(255, 255, 255);
+    animation: inc 2s forwards;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+  }
+  
+/* Login page   */
+
+
+#head{
+    background-color: #A4C4B5;
+    color: #526B4E;
+    font-size:130px;
+    font-family: 'Quantico', sans-serif;
+    line-height: 120px;
+    height: 100vh;
+    width: 100%;
+    padding-top: 20px;
+
+}
+
+#head p{
+    text-shadow: 2px 2px 14px #5e7168;
+    margin-left: 40px;
+  margin-top: 20px;
+}
+
+#head1{
+    text-shadow: none;
+}
+#p{
+    height: 80vh;
+    width: 100vw;
+    animation: up1 4s forwards;
+}
+
+#box{
+    bottom: 0;
+    left: 0;
+    background-color: #86a397;
+    height: 20vh;
+    width: 100vw;
+    border-radius: 80px 80px 0px 0px;
+    padding-top: 40px;
+    text-align: center;
+    animation: up 4s forwards;
+    opacity: 0;
+}
+#boxup{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#googleBtn{
+  margin-bottom: 0px;
+  margin-top: 0px;
+    width: 90vw;
+    height: 150px;
+    font-size: 60px;
+    border-radius: 200px;
+    border: none;
+    background-color: #4e6059;
+}
+
+.box-down-p{
+  font-size: 40px;
+  line-height: 40px;
+  color: white;
+  margin-top: 20px;
+}
+
+
+/* by box */
+
+
+#by-box{
+  width: 100%;
+  height: 10%;
+  color: white;
+  font-family: 'Silkscreen', cursive;
+  font-size: 35px;
+  font-weight: 300;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 20px;
+}
+
+#by-box a{
+  color: aqua;
+  text-decoration: none;
+  font-size: 40px;
+}
+
+@keyframes up1{
+  0%{
+    height: 100vh;
+  }
+  50%{
+    height: 100vh;
+  }
+  100% {
+    height: 65vh;
+
+  }
+}
+
+@keyframes up{
+  0%{
+    opacity: 0;
+    height: 0vh;
+  }
+  50%{
+    opacity: 0;
+    height: 0vh;
+  }
+  100% {
+    opacity: 1;
+    height: 35vh;
+  }
+}
+
+
+
+
+
+.header-btn{
+  height: 10vh;
+  width: 23%;
+  font-size: 60px;
+  border-radius: 100px;
+  margin-left: 20px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #596e66;
+  border: none;
+  font-family: 'Quantico', sans-serif;
+}
+
+.header-btn span{
+  font-size: 60px;
+}
+
+#signOutBtn{
+  width: 45%;
+  margin-right: 20px;
+}
+
+#hello{
+  height: 0vh;
+  width: 100vw;
+  background-color: #91b4a6;
+  border-radius: 0px 0px 100px 100px;
+  font-size: 60px;
+  text-align: center;
+  animation: down  4s forwards;
+  font-family: 'Quantico', sans-serif;
+}
+#header{
+  display: flex;
+  background-color: #a0c6b6;
+  border-radius: 0px 0px 100px 100px;
+  padding-bottom: 20px;
+  height: 65%;
+
+}
+#greet{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35%;
+
+}
+
+
+#userDetails{
+  margin-top: 10px;
+  margin-right: 20px;
+  height: 100%;
+}
+
+
+
+
+#userdp{
+  height: 90%;
+  width: auto;
+  border-radius: 100px;
+  margin-top: 10px;
+  border: 5px solid #596e66;
+}
+
+@keyframes down{
+  0%{
+    opacity: 0;
+    height: 0vh;
+  }
+  50%{
+    opacity: 0;
+    height: 0vh;
+  }
+  100% {
+    opacity: 1;
+    height: 20vh;
+  }
+}
+
+
+@keyframes showup{
+  0%{
+    opacity: 0;
+    height: 0vh;
+  }
+  50%{
+    opacity: 0;
+    height: 0vh;
+  }
+  100% {
+    opacity: 1;
+    height: 8vh;
+  }
+}
+
+@keyframes adjust {
+  0%{
+    height: 450px;
+  }
+  50%{
+    height: 450px;
+  }
+  100% {
+    height: 150px;
+  }
+}
+
+
+@keyframes adjust2 {
+  0%{
+    height: 35%;
+  }
+  50%{
+    height: 35%;
+  }
+  100% {
+    height:85%;
+  }
+}
+#mainpage{
+  height: 80vh;
+  width: 100vw;
+}
+/* >>>>>>>>>>>>>>>>>>>messages<<<<<<<<<<<<<<<<<<<<< */
+#display{
+  height: 95%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex-end;
+  padding: 20px 20px 20px 20px;
+}
+
+.chat{
+  height: auto;
+  width: 90%;
+  background-color: #a0c6b6;
+  display: flex;
+  border-radius: 50px;
+  margin: 5px auto auto 5px;
+}
+
+.chatdp{
+  margin: 0px 10px 10px 10px;
+}
+
+#chatdp1{
+  height: 80px;
+  width: auto;
+  border-radius: 100px;
+  margin-top: 10px;
+  border: 5px solid #596e66;
+}
+
+.message-body{
+  height: auto;
+  width: 80%;
+  margin: 10px 10px 10px 20px;
+  font-size: 40px;
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>footer<<<<<<<<<<<<<<<<<<<<<<<< */
+#footer{
+  height: 150px;
+  width: 100%;
+  background-color: #a0c6b6;
+  border-radius: 100px 100px 0px 0px;
+  display: flex;
+  animation: adjust  4s forwards;
+
+  
+}
+
+#sendinput{
+  font-size: 60px;
+  height: 85%;
+  width: 75%;
+  border-radius: 100px;
+  border: none;
+  background-color: white;
+  margin: 15px auto auto 20px;
+  padding-left: 30px;
+  animation: adjust2  4s forwards;
+}
+
+#send{
+  height: 85%;
+  width: 20%;
+  font-size: 60px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #596e66;
+  border: none;
+  font-family: 'Quantico', sans-serif;
+  margin: 15px 20px auto auto;
+  animation: adjust2  4s forwards;
+}
+
+#send span{
+  font-size: 60px;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
