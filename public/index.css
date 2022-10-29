@@ -324,6 +324,7 @@ body{
   overflow-y: scroll;
   display: flex-end;
   padding: 20px 20px 20px 20px;
+
 }
 
 .chat{
@@ -332,7 +333,9 @@ body{
   background-color: #a0c6b6;
   display: flex;
   border-radius: 50px;
-  margin: 5px auto auto 5px;
+  margin: 15px auto auto 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .chatdp{
@@ -386,6 +389,11 @@ body{
   margin: 15px auto auto 20px;
   padding-left: 30px;
   animation: adjust2  4s forwards;
+}
+
+#sendinput:active{
+  border: none;
+  background-color: rgb(206, 203, 203);
 }
 
 #send{
