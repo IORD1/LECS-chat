@@ -85,16 +85,7 @@ send.addEventListener('click', () => {
     }
   }
   timenow = parseInt(timenow);
-  // console.log(timenow);
-  // console.log(d);
 
-
-  // var linkeditdelete = '<li>'+
-  // '<a href="#" >✓</a>' + 
-  // '<button></button>' +
-  // '</li>';
-
-  // $("#display").append(linkeditdelete);
   set(ref(database, "MessageCounter/"),{
     count : counter + 1
   })
@@ -173,6 +164,57 @@ onValue(starCountRef, (snapshot) => {
   console.log(data);
   
 });
+
+
+// .........................locking PaymentMethodChangeEvent.apply......................
+var passcode = "";
+var passlength = 0;
+var repasscode = "";
+
+lock.addEventListener('click', () => {
+  document.getElementById("whenSignedIn").hidden = true;
+  document.getElementById("whenSignedOut").hidden = true;
+  document.getElementById("whenlocked").hidden = false;
+});
+
+if(passlength < 5 || repasscode == ""){
+  numpads1.addEventListener('click',() =>{passcode = passcode + "1";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads2.addEventListener('click',() =>{passcode = passcode + "2";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads3.addEventListener('click',() =>{passcode = passcode + "3";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads4.addEventListener('click',() =>{passcode = passcode + "4";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads5.addEventListener('click',() =>{passcode = passcode + "5";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads6.addEventListener('click',() =>{passcode = passcode + "6";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads7.addEventListener('click',() =>{passcode = passcode + "7";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads8.addEventListener('click',() =>{passcode = passcode + "8";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads9.addEventListener('click',() =>{passcode = passcode + "9";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  zerobtn.addEventListener('click',() =>{passcode = passcode + "0";document.getElementById("screen-pin").innerHTML = passcode;});
+  backbtn.addEventListener('click',() =>{passcode = passcode.slice(0, -1) ;document.getElementById("screen-pin").innerHTML = passcode;});
+}else{
+  if(passlength = 4 || repasscode.length < 5){
+    document.getElementById("lock-heading-text").innerHTML = "Re-Enter Password";
+    document.getElementById("screen-pin").innerHTML = "";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // just chekcing github erros 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>addDoc>>>>>>>>>>>>>>>>>>>>>>>

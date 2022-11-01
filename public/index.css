@@ -374,6 +374,22 @@ body{
   width: 100vw;
 }
 
+#lock-heading{
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #85a598;
+  border-radius:0px 0px 100px 100px;
+}
+
+#lock-heading-text{
+  color: white;
+  font-size: 70px;
+  font-family: 'Quantico', sans-serif;
+}
+
 #screen-pin-box{
   height: 30vh;
   width: 100%;
@@ -408,7 +424,7 @@ body{
 }
 
 #number-pad-box{
-  height: 70vh;
+  height: 60vh;
   width: 100%;
   background-color: #85a598;
   border-radius: 100px 100px 0px 0px;
@@ -447,12 +463,12 @@ body{
   justify-content: center;
 }
 
-#back-btn{
+#backbtn{
   width: 40%;
   margin-left: 150px;
 }
 
-#back-btn span{
+#backbtn span{
   font-size: 100px;
   margin-top: 20px;
 }
