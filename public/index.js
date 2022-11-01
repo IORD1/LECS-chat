@@ -17,7 +17,7 @@ const firebaseapp = initializeApp({
 const auth = getAuth(firebaseapp);
 const db = getFirestore(firebaseapp);
 const database = getDatabase(firebaseapp);
-
+var counter = 0;
 
 
 //detect auth state
@@ -95,9 +95,17 @@ send.addEventListener('click', () => {
   // '</li>';
 
   // $("#display").append(linkeditdelete);
+  set(ref(database, "MessageCounter/"),{
+    count : counter + 1
+  })
+  .then(()=>{
+      console.log("Data added successfully");
+  })
+  .catch((error)=>{
+      alert(error);
+  });
 
-
-  set(ref(database, "People/"+timenow),{
+  set(ref(database, "People/"+counter),{
     Name: auth.currentUser.displayName,
     Message : enterMessage,
     time:  d,
@@ -113,6 +121,9 @@ send.addEventListener('click', () => {
   });
 
 
+
+
+
 });
 
 
@@ -121,7 +132,6 @@ document.getElementById("signOutBtn").onclick = () => auth.signOut();
 
 
 
-var counter = 0;
 
 const starCountRef = ref(database, 'People/' );
 onValue(starCountRef, (snapshot) => {
@@ -157,6 +167,12 @@ onValue(starCountRef, (snapshot) => {
 });
 
 
+const messagecount = ref(database, 'MessageCounter/' );
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+  
+});
 // just chekcing github erros 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>addDoc>>>>>>>>>>>>>>>>>>>>>>>

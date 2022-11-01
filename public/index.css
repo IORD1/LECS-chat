@@ -367,6 +367,96 @@ body{
   color: #333333;
 }
 
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>locked=screen<<<<<<<<<<<<<<<<< */
+#whenlocked{
+  background-color: #A4C4B5;
+  height: 100vh;
+  width: 100vw;
+}
+
+#screen-pin-box{
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#screen-box{
+  background-color: #4E6059;
+  height: 12vh;
+  width: 80%;
+  color: white;
+  font-size: 70px;
+  font-family: 'Quantico', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+
+}
+
+#screen-pin{
+  line-height: 70px;
+  letter-spacing: 100px;
+  text-align: middle;
+  align-content: center;
+  margin-left: 100px;
+  margin-top: 20px;
+
+}
+
+#number-pad-box{
+  height: 70vh;
+  width: 100%;
+  background-color: #85a598;
+  border-radius: 100px 100px 0px 0px;
+  padding-top: 100px;
+
+}
+
+#nine-num-pad{
+  height: 75%;
+  width: 100%;
+
+}
+.num-pad-row{
+  height: 34%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.num-pads{
+  width: 30%;
+  height: 80%;
+  margin: 20px;
+  color: white;
+  font-size: 70px;
+  font-family: 'Quantico', sans-serif;
+  text-align: center;
+  background-color: #596e66;
+  border-radius: 100px;
+  border: none;
+}
+
+#backspace-box{
+  height: 25%;
+  display: flex;
+  justify-content: center;
+}
+
+#back-btn{
+  width: 40%;
+  margin-left: 150px;
+}
+
+#back-btn span{
+  font-size: 100px;
+  margin-top: 20px;
+}
+
 /* >>>>>>>>>>>>>>>>>>>>>>>footer<<<<<<<<<<<<<<<<<<<<<<<< */
 #footer{
   height: 150px;
