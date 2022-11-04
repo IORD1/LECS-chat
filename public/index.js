@@ -177,27 +177,38 @@ lock.addEventListener('click', () => {
   document.getElementById("whenlocked").hidden = false;
 });
 
-if(passlength < 5 || repasscode == ""){
-  numpads1.addEventListener('click',() =>{passcode = passcode + "1";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads2.addEventListener('click',() =>{passcode = passcode + "2";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads3.addEventListener('click',() =>{passcode = passcode + "3";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads4.addEventListener('click',() =>{passcode = passcode + "4";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads5.addEventListener('click',() =>{passcode = passcode + "5";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads6.addEventListener('click',() =>{passcode = passcode + "6";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads7.addEventListener('click',() =>{passcode = passcode + "7";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads8.addEventListener('click',() =>{passcode = passcode + "8";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  numpads9.addEventListener('click',() =>{passcode = passcode + "9";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-  zerobtn.addEventListener('click',() =>{passcode = passcode + "0";document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
-  backbtn.addEventListener('click',() =>{passcode = passcode.slice(0, -1) ;document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
-}else{
-  if(passlength = 4 || repasscode.length < 5){
-    document.getElementById("lock-heading-text").innerHTML = "Re-Enter Password";
-    document.getElementById("screen-pin").innerHTML = "";
-  }
+function lockingmech(a){
+
 }
 
 
 
+numpads1.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(1)});
+numpads2.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(2)});
+numpads3.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(3)});
+numpads4.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(4)});
+numpads5.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(5)});
+numpads6.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(6)});
+numpads7.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(7)});
+numpads8.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(8)});
+numpads9.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(9)});
+zerobtn.addEventListener('click',() => {navigator.vibrate(100);lockingmech(0)});
+backbtn.addEventListener('click',() => {navigator.vibrate(100);lockingmech(-1)});
+
+
+
+
+// numpads1.addEventListener('click',() =>{passcode = passcode + "1";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads2.addEventListener('click',() =>{passcode = passcode + "2";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads3.addEventListener('click',() =>{passcode = passcode + "3";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads4.addEventListener('click',() =>{passcode = passcode + "4";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads5.addEventListener('click',() =>{passcode = passcode + "5";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads6.addEventListener('click',() =>{passcode = passcode + "6";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads7.addEventListener('click',() =>{passcode = passcode + "7";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads8.addEventListener('click',() =>{passcode = passcode + "8";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// numpads9.addEventListener('click',() =>{passcode = passcode + "9";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
+// zerobtn.addEventListener('click',() => {passcode = passcode + "0";document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
+// backbtn.addEventListener('click',() => {passcode = passcode.slice(0, -1) ;document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
 
 
 
