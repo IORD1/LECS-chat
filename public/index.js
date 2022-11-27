@@ -178,7 +178,7 @@ lock.addEventListener('click', () => {
 });
 
 function lockingmech(a){
-
+  
 }
 
 
