@@ -1,13 +1,7 @@
-
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
-import {getDatabase, ref, set,onValue,get } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-require(['crypto'], function (crypto) {
-  //foo is now loaded.
-});
-require(['eccrypto'], function (eccrypto) {
-  //foo is now loaded.
-});
+import { getFirestore,collection,getDocs,setDoc,doc,addDoc } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js';
+import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
 
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
@@ -20,6 +14,7 @@ const firebaseapp = initializeApp({
   measurementId: "G-R3CLB772MX"});
 
 const auth = getAuth(firebaseapp);
+const db = getFirestore(firebaseapp);
 const database = getDatabase(firebaseapp);
 var counter = 0;
 
@@ -35,8 +30,6 @@ onAuthStateChanged(auth,user => {
         document.getElementById("userDetails").innerHTML = `<p>Hello ${user.displayName.split(" ")[0]} !</p> `;
         document.getElementById("userdp").src = user.photoURL;
         document.getElementById("chatdp1").src = user.photoURL;
-
-
 
     } else {
         // not signed in
@@ -96,7 +89,7 @@ send.addEventListener('click', () => {
     count : counter + 1
   })
   .then(()=>{
-      console.log("counter increased successfully");
+      console.log("Data added successfully");
   })
   .catch((error)=>{
       alert(error);
@@ -109,7 +102,7 @@ send.addEventListener('click', () => {
     dp : auth.currentUser.photoURL
   })
   .then(()=>{
-      console.log("Messages added successfully");
+      console.log("Data added successfully");
       document.getElementById("sendinput").value = "";
       document.getElementById("sendinput").placeholder = "Data sent successfully";
   })
@@ -118,7 +111,8 @@ send.addEventListener('click', () => {
   });
 
 
-  generatekey();
+
+
 
 });
 
@@ -164,26 +158,11 @@ onValue(starCountRef, (snapshot) => {
 
 
 const messagecount = ref(database, 'MessageCounter/' );
-onValue(messagecount, (snapshot) => {
+onValue(starCountRef, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
   
 });
-//--------------------------------Keys stored here ------------------------------------
-
-function generatekey(){
-  console.log('generating key')
-  // const dbRef = ref(getDatabase());
-  // get((dbRef, 'People')).then((snapshot) => {
-  //   if (snapshot.exists()) {
-  //     console.log(snapshot.val());
-  //   } else {
-  //     console.log("No data available");
-  //   }
-  // }).catch((error) => {
-  //   console.error(error);
-  // });
-}
 
 
 // .........................locking PaymentMethodChangeEvent.apply......................
@@ -197,42 +176,24 @@ lock.addEventListener('click', () => {
   document.getElementById("whenlocked").hidden = false;
 });
 
-function lockingmech(a){
-  
+if(passlength < 5 || repasscode == ""){
+  numpads1.addEventListener('click',() =>{passcode = passcode + "1";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads2.addEventListener('click',() =>{passcode = passcode + "2";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads3.addEventListener('click',() =>{passcode = passcode + "3";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads4.addEventListener('click',() =>{passcode = passcode + "4";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads5.addEventListener('click',() =>{passcode = passcode + "5";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads6.addEventListener('click',() =>{passcode = passcode + "6";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads7.addEventListener('click',() =>{passcode = passcode + "7";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads8.addEventListener('click',() =>{passcode = passcode + "8";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  numpads9.addEventListener('click',() =>{passcode = passcode + "9";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;});
+  zerobtn.addEventListener('click',() =>{passcode = passcode + "0";document.getElementById("screen-pin").innerHTML = passcode;});
+  backbtn.addEventListener('click',() =>{passcode = passcode.slice(0, -1) ;document.getElementById("screen-pin").innerHTML = passcode;});
+}else{
+  if(passlength = 4 || repasscode.length < 5){
+    document.getElementById("lock-heading-text").innerHTML = "Re-Enter Password";
+    document.getElementById("screen-pin").innerHTML = "";
+  }
 }
-
-
-
-numpads1.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(1)});
-numpads2.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(2)});
-numpads3.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(3)});
-numpads4.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(4)});
-numpads5.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(5)});
-numpads6.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(6)});
-numpads7.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(7)});
-numpads8.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(8)});
-numpads9.addEventListener('click',() =>{navigator.vibrate(100);lockingmech(9)});
-zerobtn.addEventListener('click',() => {navigator.vibrate(100);lockingmech(0)});
-backbtn.addEventListener('click',() => {navigator.vibrate(100);lockingmech(-1)});
-
-
-
-
-// numpads1.addEventListener('click',() =>{passcode = passcode + "1";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads2.addEventListener('click',() =>{passcode = passcode + "2";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads3.addEventListener('click',() =>{passcode = passcode + "3";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads4.addEventListener('click',() =>{passcode = passcode + "4";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads5.addEventListener('click',() =>{passcode = passcode + "5";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads6.addEventListener('click',() =>{passcode = passcode + "6";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads7.addEventListener('click',() =>{passcode = passcode + "7";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads8.addEventListener('click',() =>{passcode = passcode + "8";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// numpads9.addEventListener('click',() =>{passcode = passcode + "9";document.getElementById("screen-pin").innerHTML = passcode;passlength = passlength + 1;navigator.vibrate(300);});
-// zerobtn.addEventListener('click',() => {passcode = passcode + "0";document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
-// backbtn.addEventListener('click',() => {passcode = passcode.slice(0, -1) ;document.getElementById("screen-pin").innerHTML = passcode;navigator.vibrate(300);});
-
-
-
-
 
 
 
