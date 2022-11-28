@@ -17,12 +17,13 @@ var sigs ;
 eccrypto.sign(privateKey, msg).then(function(sig) {
   console.log("Signature in DER format:", sig);
   sigs = sig;
-  console.log(sigs);
+  
+});
+
+console.log(sigs);
   console.log('verification ------>')
     eccrypto.verify(publicKey, msg, sigs).then(function() {
     console.log("Signature is OK");
   }).catch(function() {
     console.log("Signature is BAD");
   });
-});
-

@@ -1,8 +1,13 @@
 
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
-import { getFirestore,collection,getDocs,setDoc,doc,addDoc } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js';
-import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
+import {getDatabase, ref, set,onValue,get } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
+require(['crypto'], function (crypto) {
+  //foo is now loaded.
+});
+require(['eccrypto'], function (eccrypto) {
+  //foo is now loaded.
+});
 
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
@@ -15,7 +20,6 @@ const firebaseapp = initializeApp({
   measurementId: "G-R3CLB772MX"});
 
 const auth = getAuth(firebaseapp);
-const db = getFirestore(firebaseapp);
 const database = getDatabase(firebaseapp);
 var counter = 0;
 
@@ -31,6 +35,8 @@ onAuthStateChanged(auth,user => {
         document.getElementById("userDetails").innerHTML = `<p>Hello ${user.displayName.split(" ")[0]} !</p> `;
         document.getElementById("userdp").src = user.photoURL;
         document.getElementById("chatdp1").src = user.photoURL;
+
+
 
     } else {
         // not signed in
@@ -90,7 +96,7 @@ send.addEventListener('click', () => {
     count : counter + 1
   })
   .then(()=>{
-      console.log("Data added successfully");
+      console.log("counter increased successfully");
   })
   .catch((error)=>{
       alert(error);
@@ -103,7 +109,7 @@ send.addEventListener('click', () => {
     dp : auth.currentUser.photoURL
   })
   .then(()=>{
-      console.log("Data added successfully");
+      console.log("Messages added successfully");
       document.getElementById("sendinput").value = "";
       document.getElementById("sendinput").placeholder = "Data sent successfully";
   })
@@ -112,8 +118,7 @@ send.addEventListener('click', () => {
   });
 
 
-
-
+  generatekey();
 
 });
 
@@ -159,11 +164,26 @@ onValue(starCountRef, (snapshot) => {
 
 
 const messagecount = ref(database, 'MessageCounter/' );
-onValue(starCountRef, (snapshot) => {
+onValue(messagecount, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
   
 });
+//--------------------------------Keys stored here ------------------------------------
+
+function generatekey(){
+  console.log('generating key')
+  // const dbRef = ref(getDatabase());
+  // get((dbRef, 'People')).then((snapshot) => {
+  //   if (snapshot.exists()) {
+  //     console.log(snapshot.val());
+  //   } else {
+  //     console.log("No data available");
+  //   }
+  // }).catch((error) => {
+  //   console.error(error);
+  // });
+}
 
 
 // .........................locking PaymentMethodChangeEvent.apply......................
