@@ -2,7 +2,10 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
 import { getFirestore,collection,getDocs,setDoc,doc,addDoc } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js';
 import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-
+require(['crypto'], function (crypto) {
+});
+require(['eccrypto'], function (eccrypto) {
+});
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
   authDomain: "lecs-chat.firebaseapp.com",
