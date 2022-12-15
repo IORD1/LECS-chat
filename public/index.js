@@ -161,7 +161,7 @@ onValue(starCountRef, (snapshot) => {
 
 
 const messagecount = ref(database, 'MessageCounter/' );
-onValue(starCountRef, (snapshot) => {
+onValue(messagecount, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
   
