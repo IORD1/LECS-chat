@@ -2,9 +2,9 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
 import { getFirestore,collection,getDocs,setDoc,doc,addDoc } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js';
 import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-require(['crypto'], function (crypto) {
-});
 require(['eccrypto'], function (eccrypto) {
+  privateKey = eccrypto.generatePrivate();
+  publicKey = eccrypto.getPublic(privateKey);
 });
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
@@ -20,8 +20,17 @@ const auth = getAuth(firebaseapp);
 const db = getFirestore(firebaseapp);
 const database = getDatabase(firebaseapp);
 var counter = 0;
+// A new random 32-byte private key.
+var privateKey;
+var publicKey;
+console.log("private key ----->");
+console.log(privateKey);
+// Corresponding uncompressed (65-byte) public key.
+console.log("public key ----->");
+console.log(publicKey);
 
-
+var str = "message to sign";
+require(['crypto'], function (cryptos) {
 //detect auth state
 onAuthStateChanged(auth,user => {
 
@@ -98,20 +107,36 @@ send.addEventListener('click', () => {
       alert(error);
   });
 
-  set(ref(database, "People/"+counter),{
-    Name: auth.currentUser.displayName,
-    Message : enterMessage,
-    time:  d,
-    dp : auth.currentUser.photoURL
-  })
-  .then(()=>{
-      console.log("Data added successfully");
-      document.getElementById("sendinput").value = "";
-      document.getElementById("sendinput").placeholder = "Data sent successfully";
-  })
-  .catch((error)=>{
-      alert(error);
+
+
+
+      var msg = cryptos.createHash("sha256").update(str).digest();
+      eccrypto.sign(privateKey, msg).then(function (sig) {
+        console.log("Signature in DER format:", sig);
+        set(ref(database, "People/"+counter),{
+          Name: auth.currentUser.displayName,
+          Message : enterMessage,
+          time:  d,
+          dp : auth.currentUser.photoURL,
+          signature : sig
+        })
+        .then(()=>{
+            console.log("Data added successfully");
+            document.getElementById("sendinput").value = "";
+            document.getElementById("sendinput").placeholder = "Data sent successfully";
+        })
+        .catch((error)=>{
+            alert(error);
+        });
+      
+
   });
+
+
+
+
+
+  
 
 
 
@@ -166,7 +191,7 @@ onValue(messagecount, (snapshot) => {
   console.log(data);
   
 });
-
+});
 
 // .........................locking PaymentMethodChangeEvent.apply......................
 var passcode = "";
