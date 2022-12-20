@@ -1,10 +1,41 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
-import { getFirestore,collection,getDocs,setDoc,doc,addDoc } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js';
 import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-require(['eccrypto'], function (eccrypto) {
-  privateKey = eccrypto.generatePrivate();
-  publicKey = eccrypto.getPublic(privateKey);
+// require(['elliptic'].ec, function (elliptic) {
+//   var ec = new elliptic('secp256k1');
+
+// // Generate keys
+// var key = ec.genKeyPair();
+
+// // Sign the message's hash (input must be an array, or a hex-string)
+// var msgHash = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+// var signature = key.sign(msgHash);
+
+// // Export DER encoded signature in Array
+// var derSign = signature.toDER();
+// console.log(typeof(derSign));
+// derSign[9] = 13;
+// // Verify signature
+// console.log(key.verify(msgHash, derSign));
+// });
+requirejs([
+  "elliptic"
+].ec, function(elliptic) {
+  var ec = new elliptic('secp256k1');
+
+// Generate keys
+var key = ec.genKeyPair();
+
+// Sign the message's hash (input must be an array, or a hex-string)
+var msgHash = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+var signature = key.sign(msgHash);
+
+// Export DER encoded signature in Array
+var derSign = signature.toDER();
+console.log(typeof(derSign));
+derSign[9] = 13;
+// Verify signature
+console.log(key.verify(msgHash, derSign));
 });
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
@@ -17,7 +48,6 @@ const firebaseapp = initializeApp({
   measurementId: "G-R3CLB772MX"});
 
 const auth = getAuth(firebaseapp);
-const db = getFirestore(firebaseapp);
 const database = getDatabase(firebaseapp);
 var counter = 0;
 // A new random 32-byte private key.
@@ -29,8 +59,7 @@ console.log(privateKey);
 console.log("public key ----->");
 console.log(publicKey);
 
-var str = "message to sign";
-require(['crypto'], function (cryptos) {
+
 //detect auth state
 onAuthStateChanged(auth,user => {
 
@@ -109,38 +138,20 @@ send.addEventListener('click', () => {
 
 
 
-
-      var msg = cryptos.createHash("sha256").update(str).digest();
-      eccrypto.sign(privateKey, msg).then(function (sig) {
-        console.log("Signature in DER format:", sig);
-        set(ref(database, "People/"+counter),{
-          Name: auth.currentUser.displayName,
-          Message : enterMessage,
-          time:  d,
-          dp : auth.currentUser.photoURL,
-          signature : sig
-        })
-        .then(()=>{
-            console.log("Data added successfully");
-            document.getElementById("sendinput").value = "";
-            document.getElementById("sendinput").placeholder = "Data sent successfully";
-        })
-        .catch((error)=>{
-            alert(error);
-        });
-      
-
+  set(ref(database, "People/"+counter),{
+    Name: auth.currentUser.displayName,
+    Message : enterMessage,
+    time:  d,
+    dp : auth.currentUser.photoURL
+  })
+  .then(()=>{
+      console.log("Data added successfully");
+      document.getElementById("sendinput").value = "";
+      document.getElementById("sendinput").placeholder = "Data sent successfully";
+  })
+  .catch((error)=>{
+      alert(error);
   });
-
-
-
-
-
-  
-
-
-
-
 
 });
 
@@ -190,7 +201,6 @@ onValue(messagecount, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
   
-});
 });
 
 // .........................locking PaymentMethodChangeEvent.apply......................
