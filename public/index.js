@@ -1,42 +1,8 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
 import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-// require(['elliptic'].ec, function (elliptic) {
-//   var ec = new elliptic('secp256k1');
 
-// // Generate keys
-// var key = ec.genKeyPair();
 
-// // Sign the message's hash (input must be an array, or a hex-string)
-// var msgHash = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-// var signature = key.sign(msgHash);
-
-// // Export DER encoded signature in Array
-// var derSign = signature.toDER();
-// console.log(typeof(derSign));
-// derSign[9] = 13;
-// // Verify signature
-// console.log(key.verify(msgHash, derSign));
-// });
-requirejs([
-  "elliptic"
-].ec, function(elliptic) {
-  var ec = new elliptic('secp256k1');
-
-// Generate keys
-var key = ec.genKeyPair();
-
-// Sign the message's hash (input must be an array, or a hex-string)
-var msgHash = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-var signature = key.sign(msgHash);
-
-// Export DER encoded signature in Array
-var derSign = signature.toDER();
-console.log(typeof(derSign));
-derSign[9] = 13;
-// Verify signature
-console.log(key.verify(msgHash, derSign));
-});
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
   authDomain: "lecs-chat.firebaseapp.com",
@@ -51,13 +17,6 @@ const auth = getAuth(firebaseapp);
 const database = getDatabase(firebaseapp);
 var counter = 0;
 // A new random 32-byte private key.
-var privateKey;
-var publicKey;
-console.log("private key ----->");
-console.log(privateKey);
-// Corresponding uncompressed (65-byte) public key.
-console.log("public key ----->");
-console.log(publicKey);
 
 
 //detect auth state
