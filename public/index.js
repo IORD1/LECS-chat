@@ -11,7 +11,8 @@ const firebaseapp = initializeApp({
   storageBucket: "lecs-chat.appspot.com",
   messagingSenderId: "199711899591",
   appId: "1:199711899591:web:fe8db5b1909721243163e2",
-  measurementId: "G-R3CLB772MX"});
+  measurementId: "G-R3CLB772MX"
+});
 
 const auth = getAuth(firebaseapp);
 const database = getDatabase(firebaseapp);
