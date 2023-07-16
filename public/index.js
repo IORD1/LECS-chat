@@ -17,7 +17,7 @@ const firebaseapp = initializeApp({
 
 const auth = getAuth(firebaseapp);
 const database = getDatabase(firebaseapp);
-
+let userSignature;
 
 //detect auth state
 onAuthStateChanged(auth,user => {
@@ -30,6 +30,18 @@ onAuthStateChanged(auth,user => {
         document.getElementById("userDetails").innerHTML = `<p>Hello ${user.displayName.split(" ")[0]} !</p> `;
         document.getElementById("userdp").src = user.photoURL;
         document.getElementById("chatdp1").src = user.photoURL;
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `Signature/${auth.currentUser.uid}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log(snapshot.val());
+            userSignature = snapshot.val();
+          } else {
+            console.log("No data available");
+            console.log(auth.currentUser.uid);
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
 
     } else {
         // not signed in
@@ -77,6 +89,7 @@ signInWithPopup(auth, provider)
       get(child(dbRef, `Signature/${auth.currentUser.uid}`)).then((snapshot) => {
         if (snapshot.exists()) {
           console.log(snapshot.val());
+          userSignature = snapshot.val();
         } else {
           console.log("No data available");
           console.log(auth.currentUser.uid);
@@ -121,27 +134,53 @@ send.addEventListener('click', () => {
   if(enterMessage.length == 0){
     alert("Please Enter Message")
   }else{
-    console.log(auth.currentUser.displayName);
-    const d = new Date().toLocaleString();
-    let timenow = "";
-    for(let i=0;i<20; i++){
-      if(d[i] != "/" && d[i] != "," && d[i] != ":" && d[i] != " "){
-        timenow = timenow + d[i];
+    if(signOff){
+      console.log(auth.currentUser.displayName);
+      const d = new Date().toLocaleString();
+      let timenow = "";
+      for(let i=0;i<20; i++){
+        if(d[i] != "/" && d[i] != "," && d[i] != ":" && d[i] != " "){
+          timenow = timenow + d[i];
+        }
       }
+      timenow = parseInt(timenow);
+      const postListRef = ref(database, 'chat/' );
+      const newPostRef = push(postListRef);
+      set(newPostRef, {
+        Name: auth.currentUser.displayName,
+        Message : enterMessage,
+        time:  d,
+        dp : auth.currentUser.photoURL,
+        sign : signatureOfMessage
+      })
+      .then(()=>{
+        console.log("chat added with signature : "+ signatureOfMessage);
+      });
+    }else{
+      console.log(auth.currentUser.displayName);
+      const d = new Date().toLocaleString();
+      let timenow = "";
+      for(let i=0;i<20; i++){
+        if(d[i] != "/" && d[i] != "," && d[i] != ":" && d[i] != " "){
+          timenow = timenow + d[i];
+        }
+      }
+      timenow = parseInt(timenow);
+  
+      const postListRef = ref(database, 'chat/' );
+      const newPostRef = push(postListRef);
+      set(newPostRef, {
+        Name: auth.currentUser.displayName,
+        Message : enterMessage,
+        time:  d,
+        dp : auth.currentUser.photoURL,
+        sign : 'nosign'
+      })
+      .then(()=>{
+        console.log("chat added");
+      });
     }
-    timenow = parseInt(timenow);
 
-    const postListRef = ref(database, 'chat/' );
-    const newPostRef = push(postListRef);
-    set(newPostRef, {
-      Name: auth.currentUser.displayName,
-      Message : enterMessage,
-      time:  d,
-      dp : auth.currentUser.photoURL
-    })
-    .then(()=>{
-      console.log("chat added");
-    });
   }
   
 
@@ -153,8 +192,15 @@ send.addEventListener('click', () => {
 
 document.getElementById("signOutBtn").onclick = () => auth.signOut();
 
+var signatureOfMessage;
 
-
+$('#sendinput').off().on('keyup', function(){
+  let str = $(this);
+  str.ecSign(userSignature.gen.private, 256, 'hex', function(err, res){
+      if(err){return console.log(err)}
+      signatureOfMessage = res;
+  })
+});
 
 
 
@@ -168,7 +214,19 @@ onValue(chatLogs, (snapshot) => {
     if(data.hasOwnProperty(key)){
       // console.log("-----------------");
       // console.log(`${key} : ${data[key].Message}`)
-
+      if(data[key].sign){
+        
+        if(data[key].sign != 'nosign'){
+          console.log("signature exists :");
+          console.log(data[key]);
+        }else{
+          console.log("nosign");
+          console.log(data[key]);
+        }
+      }else{
+        console.log("no sign name plate exist");
+        console.log(data[key]);
+      }
         var linkeditdelete =  '<div class="chat">'+
                               '  <div class="chatdp">'+
                               '    <img src="'+
@@ -194,7 +252,7 @@ onValue(chatLogs, (snapshot) => {
 
 //---------------------button behaviour-----
 
-var signOff = 0;
+var signOff = 1;
 document.getElementById("signif").onclick = () => {
   if(signOff){
     signOff = 0;
