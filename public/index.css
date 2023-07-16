@@ -517,6 +517,25 @@ body{
   animation: adjust2  4s forwards;
 }
 
+#signif{
+  height: 85%;
+  width: 20%;
+  font-size: 60px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #596e66;
+  border: none;
+  font-family: 'Quantico', sans-serif;
+  margin: 15px 5px auto 5px;
+  animation: adjust2  4s forwards;
+}
+
+#signif span{
+  font-size: 60px;
+}
+
 #send span{
   font-size: 60px;
 }

@@ -20,6 +20,8 @@
                     $('#yourtext').off().on('keyup', function(){
                         let str = $(this);
                         console.log(str);
+                        // str = JSON.parse('{ "0": "input#yourtext", "length": 1 }');
+                        // console.log(str);
                         str.ecSign(gen.private, 256, 'hex', function(err, res){
                             if(err){return console.log(err)}
                             console.log(res);
@@ -48,3 +50,8 @@
     <p id="result">Your result</p>
 </body>
 </html>
+
+
+
+
+

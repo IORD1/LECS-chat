@@ -1,7 +1,8 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
-import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
+import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup,getAdditionalUserInfo} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
 import {getDatabase, ref, set,onValue, push, get,child } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
-
+// import {$} from 'https://code.jquery.com/jquery-3.7.0.min.js';
+// import {} from 'https://unpkg.com/jquery-ecdsa';
 
 const firebaseapp = initializeApp({
   apiKey: "AIzaSyDURV-9NnakYNiBlyMUbIqykhOl2hQCYQ0",
@@ -16,8 +17,6 @@ const firebaseapp = initializeApp({
 
 const auth = getAuth(firebaseapp);
 const database = getDatabase(firebaseapp);
-var counter = 0;
-// A new random 32-byte private key.
 
 
 //detect auth state
@@ -45,6 +44,49 @@ googleBtn.addEventListener('click', (e) => {
 
 console.log('initiating login process');
 signInWithPopup(auth, provider)
+.then( (result) => {
+  const isFirstLogin = getAdditionalUserInfo(result).isNewUser;
+  console.log(isFirstLogin);
+  if(isFirstLogin){
+    $(document).ready(function(){
+      console.log("signature assigned");
+      $.ecGen('256',function(err,gen){
+        if(err){return console.log(err)}
+        console.log(gen);
+       $.each({'public': gen.public,'private': gen.private}, function(i,e){
+            $('#'+i+ 'Key').text(JSON.stringify(e,0,2))
+        })
+        console.log(gen);
+        set(ref(database, "Signature/"+auth.currentUser.uid),{
+          gen
+        })
+        .then(()=>{
+            console.log("Signature added successfully");
+        })
+        .catch((error)=>{
+            alert(error);
+        });
+      });
+
+    });
+  }else{
+    $(document).ready(function(){
+      console.log("Signature fetched");
+
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `Signature/${auth.currentUser.uid}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+          console.log(auth.currentUser.uid);
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    });
+  }
+})
 .then((result) => {
   // This gives you a Google Access Token. You can use it to access the Google API.
   const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -76,27 +118,32 @@ send.addEventListener('click', () => {
   // Add a new document with a generated id.
   var enterMessage = document.getElementById("sendinput").value;
   console.log(enterMessage);
-  console.log(auth.currentUser.displayName);
-  const d = new Date().toLocaleString();
-  let timenow = "";
-  for(let i=0;i<20; i++){
-    if(d[i] != "/" && d[i] != "," && d[i] != ":" && d[i] != " "){
-      timenow = timenow + d[i];
+  if(enterMessage.length == 0){
+    alert("Please Enter Message")
+  }else{
+    console.log(auth.currentUser.displayName);
+    const d = new Date().toLocaleString();
+    let timenow = "";
+    for(let i=0;i<20; i++){
+      if(d[i] != "/" && d[i] != "," && d[i] != ":" && d[i] != " "){
+        timenow = timenow + d[i];
+      }
     }
-  }
-  timenow = parseInt(timenow);
+    timenow = parseInt(timenow);
 
-  const postListRef = ref(database, 'chat/' );
-  const newPostRef = push(postListRef);
-  set(newPostRef, {
-    Name: auth.currentUser.displayName,
-    Message : enterMessage,
-    time:  d,
-    dp : auth.currentUser.photoURL
-  })
-  .then(()=>{
-    console.log("chat added");
-  });
+    const postListRef = ref(database, 'chat/' );
+    const newPostRef = push(postListRef);
+    set(newPostRef, {
+      Name: auth.currentUser.displayName,
+      Message : enterMessage,
+      time:  d,
+      dp : auth.currentUser.photoURL
+    })
+    .then(()=>{
+      console.log("chat added");
+    });
+  }
+  
 
 
 
@@ -145,7 +192,19 @@ onValue(chatLogs, (snapshot) => {
 });
 
 
+//---------------------button behaviour-----
 
+var signOff = 0;
+document.getElementById("signif").onclick = () => {
+  if(signOff){
+    signOff = 0;
+    document.getElementById("signif").style.backgroundColor='lightgrey';
+  }else if(signOff == 0){
+    signOff = 1;
+    document.getElementById("signif").style.backgroundColor='#596e66';
+  }
+
+};
 
 
 

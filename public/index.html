@@ -19,7 +19,8 @@
         <!-- require js for require function
         <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
        -->
-
+       <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+       <script src="https://unpkg.com/jquery-ecdsa"></script>
     </head>
     <body>
       <div class="splash">
@@ -28,7 +29,7 @@
         </div>
         
     </div>
-        <section id="whenSignedOut">
+        <section id="whenSignedOut" hidden="true">
             <div id="head">
               <div id="p">
                 <p id="p1">Linear </p>
@@ -102,7 +103,7 @@
 
 
 
-          <section id="whenSignedIn" hidden="true">
+          <section id="whenSignedIn" >
           
           
           
@@ -152,6 +153,12 @@
           
               <div id="footer">
                 <input type="text" name="input" id="sendinput" placeholder="Write here">
+                <button id="signif" class="btn btn-primary send-btn" >
+                  <span class="material-symbols-outlined" id="fingerprintIcon">
+                    fingerprint
+                  </span>
+                </button>
+                
                 <button id="send" class="btn btn-primary send-btn">
                   <span class="material-symbols-outlined">
                     send
