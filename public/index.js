@@ -218,15 +218,43 @@ onValue(chatLogs, (snapshot) => {
         
         if(data[key].sign != 'nosign'){
           console.log("signature exists :");
-          console.log(data[key]);
+          console.log(data[key].sign);
+          
+          var linkeditdelete =  '<div class="chat">'+
+                              '  <div class="chatdp">'+
+                              '    <img src="'+
+                                  data[key].dp +
+                              '" id="chatdp1">'+
+                              '  </div>'+
+                              '  <div class="message-body">'+
+                              '    <div class="time">'+
+                                      data[key].time+' Msg. Signed'+
+                              '     </div>'+
+                              '      <div class="message">'+
+                                      data[key].Message +
+                              '       </div>'+
+                              '   </div>'+
+                              '</div>'
+        $("#display").append(linkeditdelete);
         }else{
-          console.log("nosign");
-          console.log(data[key]);
+          var linkeditdelete =  '<div class="chat">'+
+                              '  <div class="chatdp">'+
+                              '    <img src="'+
+                                  data[key].dp +
+                              '" id="chatdp1">'+
+                              '  </div>'+
+                              '  <div class="message-body">'+
+                              '    <div class="time">'+
+                                      data[key].time+' Msg. Not Signed'
+                              '     </div>'+
+                              '      <div class="message">'+
+                                      data[key].Message +
+                              '       </div>'+
+                              '   </div>'+
+                              '</div>'
+        $("#display").append(linkeditdelete);
         }
       }else{
-        console.log("no sign name plate exist");
-        console.log(data[key]);
-      }
         var linkeditdelete =  '<div class="chat">'+
                               '  <div class="chatdp">'+
                               '    <img src="'+
@@ -243,6 +271,8 @@ onValue(chatLogs, (snapshot) => {
                               '   </div>'+
                               '</div>'
         $("#display").append(linkeditdelete);
+      }
+        
 
     }
   }
