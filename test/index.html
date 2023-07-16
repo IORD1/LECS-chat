@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://unpkg.com/jquery-ecdsa"></script>
+    <script>
+        $(document).ready(function(){
+            $("#sendit").on('click', function(){
+                $.ecGen('256',function(err,gen){
+                    if(err){return console.log(err)}
+                   $.each({'public': gen.public,'private': gen.private}, function(i,e){
+                        $('#'+i+ 'Key').text(JSON.stringify(e,0,2))
+                    })
+                    console.log(gen);
+
+
+
+                    let str = $("#yourtext").val();
+                    console.log(str);
+
+                    str.ecSign(gen.private, "256", 'hex', function(err, res){
+                        if(err){return console.log(err)}
+                        
+                    })
+
+
+
+
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    sd
+    <input type="text" id="yourtext"></input>
+    <button id="sendit">send</button>
+    <p id="result">Your result</p>
+</body>
+</html>

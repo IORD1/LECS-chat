@@ -1,6 +1,6 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js';
 import { getAuth, onAuthStateChanged,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js';
-import {getDatabase, ref, set,onValue } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
+import {getDatabase, ref, set,onValue, push, get,child } from 'https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js';
 
 
 const firebaseapp = initializeApp({
@@ -98,20 +98,19 @@ send.addEventListener('click', () => {
 
 
 
-  set(ref(database, "People/"+counter),{
+  const postListRef = ref(database, 'chat/' );
+  const newPostRef = push(postListRef);
+  set(newPostRef, {
     Name: auth.currentUser.displayName,
     Message : enterMessage,
     time:  d,
     dp : auth.currentUser.photoURL
   })
   .then(()=>{
-      console.log("Data added successfully");
-      document.getElementById("sendinput").value = "";
-      document.getElementById("sendinput").placeholder = "Data sent successfully";
-  })
-  .catch((error)=>{
-      alert(error);
+    console.log("chat added");
   });
+
+
 
 });
 
@@ -122,14 +121,18 @@ document.getElementById("signOutBtn").onclick = () => auth.signOut();
 
 
 
-const starCountRef = ref(database, 'People/' );
-onValue(starCountRef, (snapshot) => {
+
+
+
+const chatLogs = ref(database, 'chat/' );
+onValue(chatLogs, (snapshot) => {
   const data = snapshot.val();
   document.getElementById("display").innerHTML = "";
   $("display").html('');
   for (const key in data){
     if(data.hasOwnProperty(key)){
-      console.log(`${key} : ${data[key].Message}`)
+      // console.log("-----------------");
+      // console.log(`${key} : ${data[key].Message}`)
 
         var linkeditdelete =  '<div class="chat">'+
                               '  <div class="chatdp">'+
@@ -150,18 +153,15 @@ onValue(starCountRef, (snapshot) => {
 
     }
   }
-  console.log(counter ,data);
-  counter++;
   
 });
 
 
-const messagecount = ref(database, 'MessageCounter/' );
-onValue(messagecount, (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-  
-});
+
+
+
+
+
 
 // .........................locking PaymentMethodChangeEvent.apply......................
 var passcode = "";
