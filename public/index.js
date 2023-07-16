@@ -86,18 +86,6 @@ send.addEventListener('click', () => {
   }
   timenow = parseInt(timenow);
 
-  set(ref(database, "MessageCounter/"),{
-    count : counter + 1
-  })
-  .then(()=>{
-      console.log("Data added successfully");
-  })
-  .catch((error)=>{
-      alert(error);
-  });
-
-
-
   const postListRef = ref(database, 'chat/' );
   const newPostRef = push(postListRef);
   set(newPostRef, {

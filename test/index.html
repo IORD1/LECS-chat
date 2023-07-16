@@ -10,7 +10,6 @@
     <script src="https://unpkg.com/jquery-ecdsa"></script>
     <script>
         $(document).ready(function(){
-            $("#sendit").on('click', function(){
                 $.ecGen('256',function(err,gen){
                     if(err){return console.log(err)}
                    $.each({'public': gen.public,'private': gen.private}, function(i,e){
@@ -18,26 +17,32 @@
                     })
                     console.log(gen);
 
+                    $('#yourtext').off().on('keyup', function(){
+                        let str = $(this);
+                        console.log(str);
+                        str.ecSign(gen.private, 256, 'hex', function(err, res){
+                            if(err){return console.log(err)}
+                            console.log(res);
 
 
-                    let str = $("#yourtext").val();
-                    console.log(str);
+                            str.ecVerify(gen.public, res, 256, 'hex', function(err, res){
+                                if(err){return console.log(err)}
+                                console.log(res);
+                                
+                            })
+                        })
+                    });
 
-                    str.ecSign(gen.private, "256", 'hex', function(err, res){
-                        if(err){return console.log(err)}
-                        
-                    })
 
 
 
 
                 })
             })
-        })
     </script>
 </head>
 <body>
-    sd
+    sds
     <input type="text" id="yourtext"></input>
     <button id="sendit">send</button>
     <p id="result">Your result</p>

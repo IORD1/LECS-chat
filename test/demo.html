@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="demo.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta charset="utf-8">
+    <title>Elliptic Curve Digital Signature Algorithm Plugin Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <style>
+        .keyOut {
+            min-height: 300px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery-ecdsa"></script>
+    <script src="./demo.js"></script>
+</head>
+
+<body cz-shortcut-listen="true">
+
+    <h1 style="margin:150px auto 30px auto; text-align:center">Elliptic Curve Digital Signature Algorithm Plugin
+        Example</h1>
+
+    <div class="container-fluid">
+        <h1 class="text-center mt-4 mb-4">jquery-ecdsa</h1>
+        <div class="row main">
+            <div class="col-sm-6 text-center mb-4"><label>select curve</label><select id="curveKey"
+                    class="custom-select">
+                    <option value="256">P-256</option>
+                    <option value="384">P-384</option>
+                    <option value="521">P-521</option>
+                </select></div>
+            <div class="col-sm-6 text-center mb-4"><label>select hash</label><select id="hashKey" class="custom-select">
+                    <option value="256">SHA-256</option>
+                    <option value="384">SHA-384</option>
+                    <option value="512">SHA-512</option>
+                </select></div>
+            <div class="col-sm-6 text-center"><label>public key</label><textarea id="publicKey"
+                    class="form-control keyOut" readonly="readonly">{
+
+        }</textarea></div>
+            <div class="col-sm-6 text-center"><label>private key</label><textarea id="privateKey"
+                    class="form-control keyOut" readonly="readonly">{
+        }</textarea></div>
+            <div class="col-sm-4 text-center mb-4"><label>data</label>
+                <input id="dataKey" class="form-control">
+            </div>
+            <div class="col-sm-4 text-center mb-4"><label>sign</label>
+                <input id="signKey" class="form-control">
+            </div>
+            <div class="col-sm-4 text-center mb-4"><label>verify</label>
+                <input id="verifyKey" class="form-control">
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
+</html>
