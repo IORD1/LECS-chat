@@ -237,6 +237,7 @@ onValue(chatLogs, (snapshot) => {
                               '</div>'
         $("#display").append(linkeditdelete);
         }else{
+          console.log(data[key].Message);
           var linkeditdelete =  '<div class="chat">'+
                               '  <div class="chatdp">'+
                               '    <img src="'+
@@ -245,7 +246,7 @@ onValue(chatLogs, (snapshot) => {
                               '  </div>'+
                               '  <div class="message-body">'+
                               '    <div class="time">'+
-                                      data[key].time+' Msg. Not Signed'
+                                      data[key].time+' Msg. Not Signed'+
                               '     </div>'+
                               '      <div class="message">'+
                                       data[key].Message +
