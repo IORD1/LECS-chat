@@ -255,7 +255,7 @@ onValue(chatLogs, (snapshot) => {
                                   '      <div class="message">'+
                                           data[key].Message +
                                   '      </div>'+
-                                  '      <div class="notverified"><span class="material-symbols-outlined">verified</span><p>Inalid Signature</p></div>'+
+                                  '      <div class="notverified"><span class="material-symbols-outlined">report</span><p>Inalid Signature</p></div>'+
                                   '  </div>'+
                                   '</div>'
           $("#display").append(linkeditdelete);
