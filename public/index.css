@@ -367,6 +367,28 @@ body{
   color: #333333;
 }
 
+.verified{
+  width: 80%;
+  display: flex;
+  height: auto;
+  font-size: 20px;
+  color: #333333;
+}
+
+.verified span{
+  height: 20px;
+  width: 20px;
+  color: greenyellow;
+  display: inline;
+  margin-right: 15px;
+}
+
+.hiddentinput{
+  height: 0px;
+  width: 0px;
+  border-color: transparent;
+  background-color: transparent;
+}
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>locked=screen<<<<<<<<<<<<<<<<< */
 #whenlocked{
   background-color: #A4C4B5;
@@ -403,7 +425,7 @@ body{
   background-color: #4E6059;
   height: 12vh;
   width: 80%;
-  color: white;
+  color: rgba(255, 255, 255, 0);
   font-size: 70px;
   font-family: 'Quantico', sans-serif;
   display: flex;

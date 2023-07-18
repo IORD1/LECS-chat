@@ -46,10 +46,10 @@ $(document).ready(function() {
         let str = $(this),
         
         hashVal = $('#hashKey').val();
-        console.log(str);
         str.ecSign(gen.private, 256, 'hex', function(err, res){
           if(err){return console.log(err)}
           $('#signKey').val(res);
+          str = $(this)
           str.ecVerify(gen.public, res, 256, 'hex', function(err, res){
             if(err){return console.log(err)}
 
