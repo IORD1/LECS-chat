@@ -130,7 +130,6 @@ send.addEventListener('click', () => {
   
   // Add a new document with a generated id.
   var enterMessage = document.getElementById("sendinput").value;
-  console.log(enterMessage);
   if(enterMessage.length == 0){
     alert("Please Enter Message")
   }else{
@@ -151,13 +150,13 @@ send.addEventListener('click', () => {
         Message : enterMessage,
         time:  d,
         dp : auth.currentUser.photoURL,
-        sign : signatureOfMessage
+        sign : signatureOfMessage,
+        public: userSignature.gen.public,
       })
       .then(()=>{
         console.log("chat added with signature : "+ signatureOfMessage);
       });
     }else{
-      console.log(auth.currentUser.displayName);
       const d = new Date().toLocaleString();
       let timenow = "";
       for(let i=0;i<20; i++){
@@ -211,163 +210,101 @@ onValue(chatLogs, (snapshot) => {
   const data = snapshot.val();
   document.getElementById("display").innerHTML = "";
   $("display").html('');
-  if(userSignature){
-    for (const key in data){
-      if(data.hasOwnProperty(key)){
-        // console.log("-----------------");
-        // console.log(`${key} : ${data[key].Message}`)
-        if(data[key].sign){
+
+  for (const key in data){
+    if(data.hasOwnProperty(key)){
+      // console.log("-----------------");
+      // console.log(`${key} : ${data[key].Message}`)
+      if(data[key].sign){
+        
+        if(data[key].sign != 'nosign'){
+          document.getElementById("hiddentinput").value = data[key].Message;
+          let str2 = $("#hiddentinput");
+          console.log(data[key].public);
+          str2.ecVerify(data[key].public, data[key].sign, 256, 'hex', function(err, res){
+            if(err){return console.log(err)}     
+            if(res){
+            var linkeditdelete =  '<div class="chat">'+
+                                  '  <div class="chatdp">'+
+                                  '    <img src="'+
+                                      data[key].dp +
+                                  '" id="chatdp1">'+
+                                  '  </div>'+
+                                  '  <div class="message-body">'+
+                                  '      <div class="time">'+
+                                          data[key].time+' Msg. Signed by '+ auth.currentUser.displayName +
+                                  '      </div>'+
+                                  '      <div class="message">'+
+                                          data[key].Message +
+                                  '      </div>'+
+                                  '      <div class="verified"><span class="material-symbols-outlined">verified</span><p>Valid Signature</p></div>'+
+                                  '  </div>'+
+                                  '</div>'
+            $("#display").append(linkeditdelete);
+            }else{
+            var linkeditdelete =  '<div class="chat">'+
+                                  '  <div class="chatdp">'+
+                                  '    <img src="'+
+                                      data[key].dp +
+                                  '" id="chatdp1">'+
+                                  '  </div>'+
+                                  '  <div class="message-body">'+
+                                  '      <div class="time">'+
+                                          data[key].time+' Msg. Signed'+ auth.currentUser.displayName +
+                                  '      </div>'+
+                                  '      <div class="message">'+
+                                          data[key].Message +
+                                  '      </div>'+
+                                  '      <div class="notverified"><span class="material-symbols-outlined">verified</span><p>Inalid Signature</p></div>'+
+                                  '  </div>'+
+                                  '</div>'
+          $("#display").append(linkeditdelete);
+            }       
+          });
           
-          if(data[key].sign != 'nosign'){
-            console.log("signature exists :");
-            console.log(data[key].sign);
-            
-            var linkeditdelete =  '<div class="chat">'+
-                                '  <div class="chatdp">'+
-                                '    <img src="'+
-                                    data[key].dp +
-                                '" id="chatdp1">'+
-                                '  </div>'+
-                                '  <div class="message-body">'+
-                                '    <div class="time">'+
-                                        data[key].time+' Msg. Signed'+
-                                '     </div>'+
-                                '      <div class="message">'+
-                                        data[key].Message +
-                                '       </div>'+
-                                '   </div>'+
-                                '</div>'
-          $("#display").append(linkeditdelete);
-          }else{
-            var linkeditdelete =  '<div class="chat">'+
-                                '  <div class="chatdp">'+
-                                '    <img src="'+
-                                    data[key].dp +
-                                '" id="chatdp1">'+
-                                '  </div>'+
-                                '  <div class="message-body">'+
-                                '    <div class="time">'+
-                                        data[key].time+' Msg. Not Signed'+
-                                '     </div>'+
-                                '      <div class="message">'+
-                                        data[key].Message +
-                                '       </div>'+
-                                '   </div>'+
-                                '</div>'
-          $("#display").append(linkeditdelete);
-          }
         }else{
           var linkeditdelete =  '<div class="chat">'+
-                                '  <div class="chatdp">'+
-                                '    <img src="'+
-                                    data[key].dp +
-                                '" id="chatdp1">'+
-                                '  </div>'+
-                                '  <div class="message-body">'+
-                                '    <div class="time">'+
-                                        data[key].time+
-                                '     </div>'+
-                                '      <div class="message">'+
-                                        data[key].Message +
-                                '       </div>'+
-                                '   </div>'+
-                                '</div>'
-          $("#display").append(linkeditdelete);
+                              '  <div class="chatdp">'+
+                              '    <img src="'+
+                                  data[key].dp +
+                              '" id="chatdp1">'+
+                              '  </div>'+
+                              '  <div class="message-body">'+
+                              '    <div class="time">'+
+                                      data[key].time+' Msg. Not Signed'+
+                              '     </div>'+
+                              '      <div class="message">'+
+                                      data[key].Message +
+                              '       </div>'+
+                              '   </div>'+
+                              '</div>'
+        $("#display").append(linkeditdelete);
         }
-          
-  
+      }else{
+        var linkeditdelete =  '<div class="chat">'+
+                              '  <div class="chatdp">'+
+                              '    <img src="'+
+                                  data[key].dp +
+                              '" id="chatdp1">'+
+                              '  </div>'+
+                              '  <div class="message-body">'+
+                              '    <div class="time">'+
+                                      data[key].time+
+                              '     </div>'+
+                              '      <div class="message">'+
+                                      data[key].Message +
+                              '       </div>'+
+                              '   </div>'+
+                              '</div>'
+        $("#display").append(linkeditdelete);
       }
-    }
-  }else{
-    console.log("User signature not fetched")
-    const dbRef = ref(getDatabase());
-      get(child(dbRef, `Signature/${auth.currentUser.uid}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-          userSignature = snapshot.val();
-        } else {
-          console.log("No data available");
-          console.log(auth.currentUser.uid);
-        }
-      })
-      .then(()=>{
-
-        for (const key in data){
-         if(data.hasOwnProperty(key)){
-           // console.log("-----------------");
-           // console.log(`${key} : ${data[key].Message}`)
-           if(data[key].sign){
-             
-             if(data[key].sign != 'nosign'){
-               document.getElementById("hiddentinput").value = data[key].Message;
-               let str2 = $("#hiddentinput");
-               str2.ecVerify(userSignature.gen.public, data[key].sign, 256, 'hex', function(err, res){
-                 if(err){return console.log(err)}                 
-               })
-               var linkeditdelete =  '<div class="chat">'+
-                                   '  <div class="chatdp">'+
-                                   '    <img src="'+
-                                       data[key].dp +
-                                   '" id="chatdp1">'+
-                                   '  </div>'+
-                                   '  <div class="message-body">'+
-                                   '      <div class="time">'+
-                                           data[key].time+' Msg. Signed'+
-                                   '      </div>'+
-                                   '      <div class="message">'+
-                                           data[key].Message +
-                                   '      </div>'+
-                                   '      <div class="verified"><span class="material-symbols-outlined">verified</span><p>Valid Signature</p></div>'+
-                                   '  </div>'+
-                                   '</div>'
-             $("#display").append(linkeditdelete);
-             }else{
-               var linkeditdelete =  '<div class="chat">'+
-                                   '  <div class="chatdp">'+
-                                   '    <img src="'+
-                                       data[key].dp +
-                                   '" id="chatdp1">'+
-                                   '  </div>'+
-                                   '  <div class="message-body">'+
-                                   '    <div class="time">'+
-                                           data[key].time+' Msg. Not Signed'+
-                                   '     </div>'+
-                                   '      <div class="message">'+
-                                           data[key].Message +
-                                   '       </div>'+
-                                   '   </div>'+
-                                   '</div>'
-             $("#display").append(linkeditdelete);
-             }
-           }else{
-             var linkeditdelete =  '<div class="chat">'+
-                                   '  <div class="chatdp">'+
-                                   '    <img src="'+
-                                       data[key].dp +
-                                   '" id="chatdp1">'+
-                                   '  </div>'+
-                                   '  <div class="message-body">'+
-                                   '    <div class="time">'+
-                                           data[key].time+
-                                   '     </div>'+
-                                   '      <div class="message">'+
-                                           data[key].Message +
-                                   '       </div>'+
-                                   '   </div>'+
-                                   '</div>'
-             $("#display").append(linkeditdelete);
-           }
-             
-     
-         }
-       }
-      });
-
         
+
+    }
   }
-  
-  
 });
+
+
 
 
 //---------------------button behaviour-----

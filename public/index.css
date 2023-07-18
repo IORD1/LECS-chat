@@ -367,7 +367,7 @@ body{
   color: #333333;
 }
 
-.verified{
+.verified, .notverified{
   width: 80%;
   display: flex;
   height: auto;
@@ -382,7 +382,13 @@ body{
   display: inline;
   margin-right: 15px;
 }
-
+.notverified span{
+  height: 20px;
+  width: 20px;
+  color: rgb(235, 34, 34);
+  display: inline;
+  margin-right: 15px;
+}
 .hiddentinput{
   height: 0px;
   width: 0px;
