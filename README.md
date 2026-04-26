@@ -1,3 +1,6 @@
+<img width="1920" height="1080" alt="102shots_so" src="https://github.com/user-attachments/assets/8849f75d-3c27-482c-8462-0838b16217cf" />
+
+
 # LECS-chat
 
 A web chat where every message is cryptographically signed in your browser and verified by everyone who reads it.
