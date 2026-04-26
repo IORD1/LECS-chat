@@ -1,15 +1,13 @@
 # LECS-chat
 
-### tryout it here: https://lecs-chat.web.app
+A web chat where every message is cryptographically signed in your browser and verified by everyone who reads it.
 
-#
+**Live:** https://lecs-chat.web.app
 
-Technologies: Front-end with HTML,CSS
-Back-end : Javascript with Firebase realtime database,autorization and deployment
+## How it works
 
-LECS-chat applications used Linear Elliptic Curve Signaturing method to sign each message posted by user. Whenever these messages are displayed, these messages are re verified for there signatures.
+1. **Sign in with Google** → your browser generates an ECDSA P-256 keypair. The private key stays on-device in IndexedDB and is non-extractable (JS can sign with it but can't read its bytes). The public key is uploaded to Firebase, keyed by `(your uid, a per-device keyId)`.
+2. **Send a message** → your browser signs the text and pushes `{ uid, keyId, text, signature, … }` to Realtime Database.
+3. **Other browsers** look up your public key at `/publicKeys/<uid>/<keyId>`, verify the signature against the text, and render the chat card with a green "Valid signature" or red "Invalid signature" badge.
 
-Applications verfies these signatures by finding out if the singature,the message, the public key of the user who posted the message fits together or not.
-If they do so, then the signatures is valid or else invalid
-
-![192shots_so](https://github.com/IORD1/LECS-chat/assets/91962775/0f55dde3-1b04-40b9-823f-9f44046ea284)
+Same user signed in on multiple devices = multiple keypairs, all valid side-by-side. Tampering with a message in the database (text or signature) makes it render red on the next refresh.
