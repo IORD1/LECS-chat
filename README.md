@@ -1,11 +1,11 @@
-<img width="1920" height="1080" alt="102shots_so" src="https://github.com/user-attachments/assets/8849f75d-3c27-482c-8462-0838b16217cf" />
+<img width="1920" height="1080" alt="939shots_so" src="https://github.com/user-attachments/assets/810998cb-25d5-481d-824b-0f750d5f2e8b" />
 
 
 # LECS-chat
 
 A web chat where every message is cryptographically signed in your browser and verified by everyone who reads it.
 
-**Live:** https://lecs-chat.web.app
+**Try here:** https://lecs-chat.web.app
 
 ## How it works
 
