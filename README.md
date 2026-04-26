@@ -5,6 +5,9 @@
 
 A web chat where every message is cryptographically signed in your browser and verified by everyone who reads it.
 
+WHY: 
+In my third year, class was assigned to take up a random topic from internet (tech related) and present it. So I took this (LEC Signaturing). That [presentation](https://canva.link/d1kp9g3m89sotcx) went well, but all that knowledge had to be dumped into something. So here we are. 
+
 **Try here:** https://lecs-chat.web.app
 
 ## How it works
